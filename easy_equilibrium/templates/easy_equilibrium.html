@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Plotly Dropdown</title>
+    <link href="static/styles.css" rel="stylesheet" type="text/css">
+    <script src="{{ url_for( 'static', filename='main.js') }}"></script>
+
+</head>
+<body>
+<div class="graph-container">
+    <div class="graph">
+        <form method="post">
+            <label for="dropdown">Select a category:</label>
+            <select id="dropdown" name="dropdown">
+                {% for option in options %}
+                <option value="{{ option }}">{{ option }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Update">
+            <button id="download-data-btn" type="button" onclick="downloadTxtFile()">Download Data</button>
+
+        </form>
+        <div>
+            {{ graph|safe }}
+        </div>
+
+    </div>
+    <div class="">
+        <table>
+            <thead>
+            <tr>
+                <th></th>
+                {% for header in headers[1:-1] %}
+                <th>{{ header }}</th>
+                {% endfor %}
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>pKa</td>
+                {% for val in pka_values %}
+                <td>{{ val }}</td>
+                {% endfor %}
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</body>
+</html>
